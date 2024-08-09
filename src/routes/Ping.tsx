@@ -50,7 +50,7 @@ function Ping() {
       }));
       return address;
     }
-  }, [address, isConnected]);
+  }, [address, isConnected, setP2P]);
 
   useEffect(() => {
     if (peerRef.current) return; // Avoid re-initializing
