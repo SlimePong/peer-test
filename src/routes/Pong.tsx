@@ -7,7 +7,6 @@ import Container from "@/components/Container";
 import ConnectCard from "@/components/ConnectCard";
 import PeerCard from "@/components/PeerCard";
 import useP2P from "@/lib/hooks/use-peer";
-import { zeroAddress } from "viem";
 
 function Pong() {
   const [p2p, setP2P] = useP2P();
@@ -46,11 +45,6 @@ function Pong() {
         conn.on("data", (data) => {
           parsePayload(data as string);
           // if (!p2p.initiator.address) throw new Error("no initiator address");
-          const payload = createPayload(
-            "pong",
-            address ? address : zeroAddress,
-          );
-          sendPayload(conn, payload);
         });
 
         conn.on("error", (err) => {

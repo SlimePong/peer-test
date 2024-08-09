@@ -103,7 +103,6 @@ function Ping() {
     });
 
     conn.on("data", (data) => {
-      console.log("📥 Received data: ", data);
       parsePayload(data as string);
     });
 
