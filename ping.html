@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeerJS Example</title>
+</head>
+<body>
+    <h1>PeerJS Example</h1>
+
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    
+    <script>
+        const receiverPeerId = 'receiver-slime-pong';
+        const peer = new Peer();
+
+        peer.on('open', function(id) {
+            console.log('My peer ID is: ' + id);
+            
+            const conn = peer.connect(receiverPeerId);
+            
+            // Send "ping" message every second once the connection is open
+            conn.on('open', function() {
+                console.log('Connection to receiver established');
+                setInterval(function() {
+                    conn.send('ping');
+                    console.log('Sent: ping');
+                }, 1000);
+            });
+
+            conn.on('data', function(data) {
+                console.log('Received data: ' + data);
+            });
+
+            conn.on('error', function(err) {
+                console.error('Connection error:', err);
+            });
+        });
+    </script>
+</body>
+</html>
